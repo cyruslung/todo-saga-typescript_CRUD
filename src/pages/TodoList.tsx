@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -21,7 +23,9 @@ const TodoList: React.FC = () => {
     const handleAddTodo = () => {
         dispatch(addTodo(newTodo)); // 將新的待辦事項添加到 store 中
         setNewTodo(""); // 將 newTodo 狀態重置為空字串
-        window.location.reload(); // 重新加載頁面
+        setTimeout(() => {
+            window.location.reload(); // 重新加载页面
+        }, 500);
     };
 
     const handleUpdateTodo = (id: any, title: any, completed: any) => {
