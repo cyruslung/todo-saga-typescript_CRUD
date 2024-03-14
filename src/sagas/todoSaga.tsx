@@ -9,9 +9,9 @@ import {
     DELETE_TODO,
 } from "../constants";
 
-function* fetchTodos():any { // 用於從後端獲取待辦事項列表
+function* fetchTodos(): any { // 用於從後端獲取待辦事項列表
     try {
-        const response = yield fetch('http://localhost:8000/todos'); // 向後端發送 HTTP 請求
+        const response = yield fetch('https://json-server-vercel-cyruslung.vercel.app/todos'); // 向後端發送 HTTP 請求
         const todos = yield response.json(); // 解析回應的 JSON 數據
         yield put({ type: SET_TODOS, payload: { todos } }); // 使用 put 函式發送一個 SET_TODOS 動作，將從後端獲取的待辦事項列表設置到 Redux 的狀態中
     } catch (error) {
@@ -19,9 +19,9 @@ function* fetchTodos():any { // 用於從後端獲取待辦事項列表
     }
 }
 
-function* addTodo({ payload }:any):any { // 用於新增待辦事項
+function* addTodo({ payload }: any): any { // 用於新增待辦事項
     try {
-        const response = yield fetch('http://localhost:8000/todos', {
+        const response = yield fetch('https://json-server-vercel-cyruslung.vercel.app/todos', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ title: payload.title, completed: false }), // 將待辦事項的標題和完成狀態作為請求的內容
@@ -33,9 +33,9 @@ function* addTodo({ payload }:any):any { // 用於新增待辦事項
     }
 }
 
-function* updateTodo({ payload }:any):any { // 用於更新待辦事項
+function* updateTodo({ payload }: any): any { // 用於更新待辦事項
     try {
-        const response = yield fetch(`http://localhost:8000/todos/${payload.id}`, {
+        const response = yield fetch(`https://json-server-vercel-cyruslung.vercel.app/todos/${payload.id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ title: payload.todo.title, completed: payload.todo.completed }), // 將待辦事項的標題和完成狀態作為請求的內容
@@ -52,9 +52,9 @@ function* updateTodo({ payload }:any):any { // 用於更新待辦事項
     }
 }
 
-function* deleteTodo({ payload }:any) { // 用於刪除待辦事項
+function* deleteTodo({ payload }: any) { // 用於刪除待辦事項
     try {
-        yield fetch(`http://localhost:8000/todos/${payload.id}`, {
+        yield fetch(`https://json-server-vercel-cyruslung.vercel.app/todos/${payload.id}`, {
             method: 'DELETE',
         });
         yield put({ type: FETCH_TODOS }); // 重新獲取待辦事項列表
